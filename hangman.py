@@ -10,6 +10,8 @@ import random
 chances = 6
 missed = []
 discovered = []
+display = ""
+
 
 
 def game_setup():
@@ -27,6 +29,7 @@ def game_setup():
 
 def guess_letter(target_word):
 	global chances 
+	global display
 	target = target_word
 	display = ""
 	
@@ -61,10 +64,11 @@ def play():
 	while chances >0:
 		guess_letter(target)
 		print "You hace %s gueeses remaining." % chances
-		if discovered == target:
+		if display == target:
 			print "You win!"
 			break	
-	print "Game Over! You Lose"
+	else:
+		print "Game Over! You Lose"
 
 
 
