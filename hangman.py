@@ -6,6 +6,7 @@ import random
 
 
 #set up game by choosing the target word from a file
+chances = 6
 
 def game_setup():
 	#read in options
@@ -19,15 +20,23 @@ def game_setup():
 
 #gets the user to submit a letter guess	
 
-def guess_word():
+def guess_letter():
+	#TODO VALIDATE LEN
+	#TODO VALIDATE ISLETTER
+	#TODO VALIDATE LOWERCASE
 	guess = raw_input("Guess a letter: ")
 	print "You guessed:  %s" % guess 
 
 
 
-def play():
+def play(chances):
+
+	life = chances
 	game_setup()
-	guess_word()
+	while life >0:
+		guess_letter()
+		life -=1
+	print "Game Over! You Lose"
 
 
-play()
+play(chances)
