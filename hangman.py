@@ -6,8 +6,11 @@ import random
 
 
 #set up game by choosing the target word from a file
-chances = 3
+
+chances = 6
 missed = []
+discovered = []
+
 
 def game_setup():
 	#read in options
@@ -23,32 +26,46 @@ def game_setup():
 #gets the user to submit a letter guess	
 
 def guess_letter(target_word):
+	global chances 
 	target = target_word
+	display = ""
 	
 	#TODO VALIDATE LEN
-	#TODO VALIDATE ISLETTER
-	#TODO VALIDATE LOWERCASE
+	#TODO VALIDATE ISLETTER .isalpha()
+	#TODO VALIDATE LOWERCASE .lower()
 	guess = raw_input("Guess a letter: ")
 	print "You guessed:  %s" % guess 
 	if guess not in target:
 		print "That is not in the word."
 		missed.append(guess)
+		chances -=1
 		print "Missed Letters: ",
 		print missed
+	else:
+		discovered.append(guess)
+		#TODO REVEAL GUESSED LETTERS
+		for n in target:
+			if n in discovered:
+				display+= n
+			else:
+				display+='_'
+		print display
 
 
 
 
-def play(chances):
 
-	life = chances
+def play():
+
 	target = game_setup()
-	while life >0:
+	while chances >0:
 		guess_letter(target)
-		life -=1
-		print "You hace %s gueeses remaining." % life
+		print "You hace %s gueeses remaining." % chances
+		if discovered == target:
+			print "You win!"
+			break	
 	print "Game Over! You Lose"
 
 
 
-play(chances)
+play()
