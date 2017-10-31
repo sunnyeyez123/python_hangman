@@ -14,17 +14,20 @@ def game_setup():
 
 	word_list = all_text.split("\n")
 	#choose random word
-	target = random.randrange(0,len(new))
+	target = word_list[random.randrange(0,len(word_list))]
 	print target
 
-def guess_word()
+#gets the user to submit a letter guess	
+
+def guess_word():
+	guess = raw_input("Guess a letter: ")
+	print "You guessed:  %s" % guess 
 
 
 
 def play():
 	game_setup()
-
-
+	guess_word()
 
 
 play()
