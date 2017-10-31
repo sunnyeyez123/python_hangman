@@ -5,14 +5,15 @@ import random
 #TODO: LET USE CHOOSE DIFFICULTY
 
 
-#set up game by choosing the target word from a file
 
+#Global Game Vars
 chances = 6
 missed = []
 discovered = []
 display = ""
 
 
+#set up game by choosing the target word from a file
 
 def game_setup():
 	#read in options
@@ -25,7 +26,11 @@ def game_setup():
 	print target
 	return target
 
-#gets the user to submit a letter guess	
+"""Lets the user submit a letter guess, validates the input,
+shows the letters they missed or reveals the word with the letters
+they correctly guressed
+
+"""
 
 def guess_letter(target_word):
 	global chances 
@@ -54,9 +59,7 @@ def guess_letter(target_word):
 				display+='_'
 		print display
 
-
-
-
+#starts the game and shares the victory or defeat message
 
 def play():
 
