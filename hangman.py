@@ -2,8 +2,11 @@
 import random
 import sys
 
+'''
+Feature improvements
 #TODO make it so you can keep playing
 #TODO keep track of wins/loses in a session
+'''
 
 #Global Game Vars
 chances = 6
@@ -12,7 +15,9 @@ discovered = []
 display = ""
 
 
-# allows the user to choose the difficulty of the game. chooses between easy, medium and hard wordlists
+'''
+allows the user to choose the difficulty of the game. chooses between easy, medium and hard wordlists
+'''
 
 def choose_difficulty():
 	difficulty = ""
@@ -35,12 +40,14 @@ def choose_difficulty():
 	return choice
 
 
-#set up game by choosing the target word from a file
+'''
+Set up game by choosing the target word from a file
+'''
 
 def game_setup(difficulty):
 
 	all_text = ""
-	#read in text files based on difficulty selected
+
 	if(difficulty) == 'e':
 		with open('easy_hang_words.txt', 'r') as open_file:
 		    all_text = open_file.read()
@@ -48,6 +55,7 @@ def game_setup(difficulty):
 		with open('normal_hang_words.txt', 'r') as open_file:
 		    all_text = open_file.read()
 	elif difficulty =='h':
+	#read in options
 		with open('hang_words.txt', 'r') as open_file:
 		    all_text = open_file.read()
 
@@ -57,7 +65,8 @@ def game_setup(difficulty):
 	#print target
 	return target
 
-"""Lets the user submit a letter guess, validates the input,
+"""
+Lets the user submit a letter guess, validates the input,
 shows the letters they missed or reveals the word with the letters
 they correctly guessed
 
@@ -108,8 +117,10 @@ def guess_letter(target_word):
 			display+='_ '
 	print display 
 
+
 	
-#starts the game and shares the victory or defeat message
+'''starts the game and shares the victory or defeat message'''
+
 def play():
 	difficulty = choose_difficulty()
 
@@ -124,6 +135,8 @@ def play():
 	else:
 		print "Game Over! You Lose"
 		print "The correct word was: %s" % target
+
+
 
 
 play()
