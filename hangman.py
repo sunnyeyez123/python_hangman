@@ -124,6 +124,7 @@ def play():
 			break	
 	else:
 		print "Game Over! You Lose"
+		print "The word was %s" % target
 
 
 
