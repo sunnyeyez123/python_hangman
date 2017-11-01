@@ -2,9 +2,8 @@
 import random
 import sys
 
-#TODO: LET USE CHOOSE DIFFICULTY
-
-
+#TODO make it so you can keep playing
+#TODO keep track of wins/loses in a session
 
 #Global Game Vars
 chances = 6
@@ -56,7 +55,7 @@ def game_setup(difficulty):
 	word_list = all_text.split("\n")
 	#choose random word
 	target = word_list[random.randrange(0,len(word_list))]
-	print target
+	#print target
 	return target
 
 """Lets the user submit a letter guess, validates the input,
@@ -125,8 +124,7 @@ def play():
 			break	
 	else:
 		print "Game Over! You Lose"
-#TODO make it so you can keep playing
-#TODO keep track of wins/loses in a session
+
 
 
 
