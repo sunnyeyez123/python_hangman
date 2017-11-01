@@ -1,7 +1,6 @@
 
 import random
 
-#file = raw_input()
 #TODO: LET USE CHOOSE DIFFICULTY
 
 
@@ -42,23 +41,35 @@ def guess_letter(target_word):
 	#TODO VALIDATE ISLETTER .isalpha()
 	#TODO VALIDATE LOWERCASE .lower()
 	guess = raw_input("Guess a letter: ")
-	print "You guessed:  %s" % guess 
-	if guess not in target:
-		print "That is not in the word."
-		missed.append(guess)
-		chances -=1
-		print "Missed Letters: ",
-		print missed
-	else:
-		discovered.append(guess)
-		#TODO REVEAL GUESSED LETTERS
-		for n in target:
-			if n in discovered:
-				display+= n
-			else:
-				display+='_'
-		print display
 
+
+	if guess.isalpha():
+		if len(guess) ==1:
+			guess = guess.lower()
+			print "You guessed:  %s" % guess 
+			if guess not in target:
+				print "That's not right. Try again"
+				missed.append(guess)
+				chances -=1
+				print "Missed Letters: ",
+				#TODO: dont take away a chance in they guess the same missed letter twice
+				print missed
+			else:
+				discovered.append(guess)
+				#TODO REVEAL GUESSED LETTERS
+				for n in target:
+					if n in discovered:
+						display+= n
+					else:
+						display+='_'
+				print display
+
+		else:
+			print "You can only guess one letter at a time"
+	else:
+		print "Try guessing a letter"
+
+	
 #starts the game and shares the victory or defeat message
 
 def play():
