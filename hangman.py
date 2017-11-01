@@ -104,9 +104,9 @@ def guess_letter(target_word):
 
 	for n in target:
 		if n in discovered:
-			display+= n
+			display+= n + ' '
 		else:
-			display+='_'
+			display+='_ '
 	print display 
 	
 
@@ -119,12 +119,13 @@ def play():
 	while chances >0:
 		guess_letter(target)
 		print "You hace %s gueeses remaining." % chances
-		if display == target:
+		if display.replace(" ", "") == target:
+			print "That's right! The correct word is: %s" % target
 			print "You win!"
 			break	
 	else:
 		print "Game Over! You Lose"
-		print "The word was %s" % target
+		print "The correct word was: %s" % target
 
 
 
