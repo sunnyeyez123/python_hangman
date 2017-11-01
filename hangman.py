@@ -1,5 +1,6 @@
 
 import random
+import sys
 
 #TODO: LET USE CHOOSE DIFFICULTY
 
@@ -36,10 +37,7 @@ def guess_letter(target_word):
 	global display
 	target = target_word
 	display = ""
-	
-	#TODO VALIDATE LEN
-	#TODO VALIDATE ISLETTER .isalpha()
-	#TODO VALIDATE LOWERCASE .lower()
+
 	guess = raw_input("Guess a letter: ")
 
 
@@ -55,9 +53,7 @@ def guess_letter(target_word):
 					chances -=1
 				else:
 					print "You already guessed that. Try again"
-				print "Missed Letters: ",
-				#TODO: dont take away a chance in they guess the same missed letter twice
-				#TODO: add text for duplicate correct or incorrect guesses
+				print "Missed Letters: ",				
 				print missed
 			else:
 				if guess not in discovered:
@@ -74,7 +70,10 @@ def guess_letter(target_word):
 						display+='_'
 
 		else:
-			print "You can only guess one letter at a time"
+			if guess == "exit" or guess == "quit":
+				sys.exit()
+			else:
+				print "You can only guess one letter at a time"
 	else:
 		print "Try guessing a letter"
 	print display #testing the placement of this
