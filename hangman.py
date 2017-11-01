@@ -13,12 +13,45 @@ discovered = []
 display = ""
 
 
+#allows the user to choose the difficulty of the game. chooses between easy, medium and hard wordlists
+
+def choose_difficulty():
+	difficulty = ""
+	choice = raw_input("Choose difficulty: e for easy. n for normal. h for hard. ")
+	if choice.isalpha():
+		if len(choice) ==1:
+			if choice == 'e' or choice == 'n' or choice == 'h':
+				choice = choice.lower()
+			else:
+				print "You never listen. Goodbye"
+				sys.exit()
+		else:
+			print "You never listen. Goodbye"
+			sys.exit()
+	else: 
+		print "You never listen. Goodbye"
+		sys.exit()
+
+
+	return choice
+
+
 #set up game by choosing the target word from a file
 
-def game_setup():
+def game_setup(difficulty):
+
+	all_text = ""
+
+	if(difficulty) == 'e':
+		with open('easy_hang_words.txt', 'r') as open_file:
+		    all_text = open_file.read()
+	elif difficulty == 'n':
+		with open('normal_hang_words.txt', 'r') as open_file:
+		    all_text = open_file.read()
+	elif difficulty =='h':
 	#read in options
-	with open('hang_words.txt', 'r') as open_file:
-	    all_text = open_file.read()
+		with open('hang_words.txt', 'r') as open_file:
+		    all_text = open_file.read()
 
 	word_list = all_text.split("\n")
 	#choose random word
@@ -43,7 +76,6 @@ def guess_letter(target_word):
 
 
 	if guess.isalpha():
-		#TODO add a way to exit the game
 		if len(guess) ==1:
 			guess = guess.lower()
 			#print "You guessed:  %s" % guess 
@@ -59,14 +91,9 @@ def guess_letter(target_word):
 			else:
 				if guess not in discovered:
 					discovered.append(guess)
-
-					#TODO choose a random confirm test string
 					print correct_guess_text[random.randrange(0, len(correct_guess_text))]
-					#print "That's right!"
 				else:
 					print "You already guessed that. Try again"
-
-
 
 		else:
 			if guess == "exit" or guess == "quit":
@@ -81,15 +108,15 @@ def guess_letter(target_word):
 			display+= n
 		else:
 			display+='_'
-	print display #testing the placement of this
+	print display 
 	
 
 	
 #starts the game and shares the victory or defeat message
-
 def play():
+	difficulty = choose_difficulty()
 
-	target = game_setup()
+	target = game_setup(difficulty)
 	while chances >0:
 		guess_letter(target)
 		print "You hace %s gueeses remaining." % chances
