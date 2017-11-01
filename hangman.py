@@ -44,30 +44,41 @@ def guess_letter(target_word):
 
 
 	if guess.isalpha():
+		#TODO add a way to exit the game
 		if len(guess) ==1:
 			guess = guess.lower()
-			print "You guessed:  %s" % guess 
+			#print "You guessed:  %s" % guess 
 			if guess not in target:
-				print "That's not right. Try again"
-				missed.append(guess)
-				chances -=1
+				if guess not in missed:
+					missed.append(guess)
+					print "That's not right. Try again"
+					chances -=1
+				else:
+					print "You already guessed that. Try again"
 				print "Missed Letters: ",
 				#TODO: dont take away a chance in they guess the same missed letter twice
+				#TODO: add text for duplicate correct or incorrect guesses
 				print missed
 			else:
-				discovered.append(guess)
-				#TODO REVEAL GUESSED LETTERS
+				if guess not in discovered:
+					discovered.append(guess)
+					#TODO choose a random confirm test string
+					print "That's right!"
+				else:
+					print "You already guessed that. Try again"
+
 				for n in target:
 					if n in discovered:
 						display+= n
 					else:
 						display+='_'
-				print display
 
 		else:
 			print "You can only guess one letter at a time"
 	else:
 		print "Try guessing a letter"
+	print display #testing the placement of this
+
 
 	
 #starts the game and shares the victory or defeat message
