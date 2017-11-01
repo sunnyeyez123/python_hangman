@@ -125,6 +125,8 @@ def play():
 			break	
 	else:
 		print "Game Over! You Lose"
+#TODO make it so you can keep playing
+#TODO keep track of wins/loses in a session
 
 
 
