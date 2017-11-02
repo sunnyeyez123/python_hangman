@@ -120,39 +120,6 @@ def guess_letter(target_word):
 	print display 
 
 
-	
-
-def play_again():
-	again = raw_input("Wanna play again? Y/N: ")
-	if again.isalpha():
-		if len(again) ==1:
-			if again.lower() == 'y':
-				reset_values()
-				play()
-			else:
-				print "Thanks for playing!"
-				sys.exit()
-		else:
-			print "I only wanted one letter. You never listen. Goodbye"
-			sys.exit()
-	else:
-		print "C'mon I asked for letters. You never listen. Goodbye"
-		ys.exit()
-
-
-	pass
-
-def reset_values():
-	global chances
-	global missed
-	global discovered
-	global display
-
-	chances = 6
-	missed = []
-	discovered = []
-	display = ""
-
 '''starts the game and shares the victory or defeat message'''
 
 def play():
@@ -168,14 +135,45 @@ def play():
 			print "That's right! The correct word is: %s" % target
 			print "You win!"
 			wins+=1
-			play_again()	
+			print "You've won %d times" % wins
+ 			play_again()	
 	else:
 		print "Game Over! You Lose"
 		print "The correct word was: %s" % target
 		losses+=1
+		print "You've lost %d time(s)" % losses
+
 		play_again()
 
+def play_again():
+	again = raw_input("Wanna play again? Y/N: ")
+	if again.isalpha():
+		if len(again) ==1:
+			if again.lower() == 'y':
+				reset_values()
+				play()
+			else:
+				print "Thanks for playing!"
+				percent =(float(wins)/(wins+losses)) * 100
+				print "You won %0.1f%% of games" % percent
+				sys.exit()
+		else:
+			print "I only wanted one letter. You never listen. Goodbye"
+			sys.exit()
+	else:
+		print "C'mon I asked for letters. You never listen. Goodbye"
+		sys.exit()
 
+def reset_values():
+	global chances
+	global missed
+	global discovered
+	global display
+
+	chances = 6
+	missed = []
+	discovered = []
+	display = ""
 
 
 play()
