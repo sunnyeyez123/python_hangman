@@ -1,4 +1,8 @@
 
+'''
+Classic game of hangman with 3 difficulty levels, 6 chances to guess and the option to play again.
+'''
+
 import random
 import sys
 
@@ -14,7 +18,7 @@ losses = 0
 
 
 '''
-allows the user to choose the difficulty of the game. chooses between easy, medium and hard wordlists
+Allows the user to choose the difficulty of the game. chooses between easy, medium and hard wordlists
 '''
 
 def choose_difficulty():
@@ -116,7 +120,7 @@ def guess_letter(target_word):
 	print display 
 
 
-'''starts the game and shares the victory or defeat message'''
+'''Starts the game and shares the victory or defeat message'''
 
 def play():
 
@@ -170,7 +174,7 @@ def play_again():
 		sys.exit()
 
 '''
-Resets global game values 
+Resets global game value variables
 '''
 
 def reset_values():
