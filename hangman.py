@@ -132,6 +132,13 @@ def play_again():
 			else:
 				print "Thanks for playing!"
 				sys.exit()
+		else:
+			print "I only wanted one letter. You never listen. Goodbye"
+			sys.exit()
+	else:
+		print "C'mon I asked for letters. You never listen. Goodbye"
+		ys.exit()
+
 
 	pass
 
