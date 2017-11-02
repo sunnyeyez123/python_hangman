@@ -166,6 +166,7 @@ def play():
 		print "Game Over! You Lose"
 		print "The correct word was: %s" % target
 		losses+=1
+		play_again()
 
 
 
