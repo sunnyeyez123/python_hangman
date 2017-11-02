@@ -2,17 +2,13 @@
 import random
 import sys
 
-'''
-Feature improvements
-#TODO make it so you can keep playing
-#TODO keep track of wins/loses in a session
-'''
-
 #Global Game Vars
+#Update in the 'Reset_values' method if you change these
 chances = 6
 missed = []
 discovered = []
 display = ""
+#these are never reset during a session
 wins = 0
 losses = 0
 
@@ -29,13 +25,13 @@ def choose_difficulty():
 			if choice == 'e' or choice == 'n' or choice == 'h':
 				choice = choice.lower()
 			else:
-				print "You never listen. Goodbye"
+				print "That's not one of the options I game you. You never listen. Goodbye"
 				sys.exit()
 		else:
-			print "You never listen. Goodbye"
+			print "I only need one letter. You never listen. Goodbye"
 			sys.exit()
 	else: 
-		print "You never listen. Goodbye"
+		print "Letters only, gosh. You never listen. Goodbye"
 		sys.exit()
 
 
@@ -64,7 +60,7 @@ def game_setup(difficulty):
 	word_list = all_text.split("\n")
 	#choose random word
 	target = word_list[random.randrange(0,len(word_list))]
-	print target
+	#print target
 	return target
 
 """
@@ -123,6 +119,9 @@ def guess_letter(target_word):
 '''starts the game and shares the victory or defeat message'''
 
 def play():
+
+	print "Welcome to hang_words. You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. "
+	print 
 	global wins
 	global losses
 	difficulty = choose_difficulty()
@@ -145,6 +144,12 @@ def play():
 
 		play_again()
 
+
+'''
+Asks the user if they want to play again. Kicks off a new game or ends the game session
+It also shares the win percentage when leaving the session.
+'''
+
 def play_again():
 	again = raw_input("Wanna play again? Y/N: ")
 	if again.isalpha():
@@ -155,7 +160,7 @@ def play_again():
 			else:
 				print "Thanks for playing!"
 				percent =(float(wins)/(wins+losses)) * 100
-				print "You won %0.1f%% of games" % percent
+				print "You won %0.1f%% of games!" % percent
 				sys.exit()
 		else:
 			print "I only wanted one letter. You never listen. Goodbye"
@@ -163,6 +168,10 @@ def play_again():
 	else:
 		print "C'mon I asked for letters. You never listen. Goodbye"
 		sys.exit()
+
+'''
+Resets global game values 
+'''
 
 def reset_values():
 	global chances
