@@ -13,6 +13,8 @@ chances = 6
 missed = []
 discovered = []
 display = ""
+wins = 0
+losses = 0
 
 
 '''
@@ -62,7 +64,7 @@ def game_setup(difficulty):
 	word_list = all_text.split("\n")
 	#choose random word
 	target = word_list[random.randrange(0,len(word_list))]
-	#print target
+	print target
 	return target
 
 """
@@ -119,9 +121,36 @@ def guess_letter(target_word):
 
 
 	
+
+def play_again():
+	again = raw_input("Wanna play again? Y/N: ")
+	if again.isalpha():
+		if len(again) ==1:
+			if again.lower() == 'y':
+				reset_values()
+				play()
+			else:
+				print "Thanks for playing!"
+				sys.exit()
+
+	pass
+
+def reset_values():
+	global chances
+	global missed
+	global discovered
+	global display
+
+	chances = 6
+	missed = []
+	discovered = []
+	display = ""
+
 '''starts the game and shares the victory or defeat message'''
 
 def play():
+	global wins
+	global losses
 	difficulty = choose_difficulty()
 
 	target = game_setup(difficulty)
@@ -131,10 +160,12 @@ def play():
 		if display.replace(" ", "") == target:
 			print "That's right! The correct word is: %s" % target
 			print "You win!"
-			break	
+			wins+=1
+			play_again()	
 	else:
 		print "Game Over! You Lose"
 		print "The correct word was: %s" % target
+		losses+=1
 
 
 
