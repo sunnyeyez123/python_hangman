@@ -154,7 +154,11 @@ def guess(targeted):
 		if n in discovered:
 			display+= n + ' '
 		else:
-			display+='_ '
+			#if its a space put a space if its a letter put an underscore
+			if n == ' ':
+				display+='  '
+			else:
+				display+='_ '
 	print display 
 
 
