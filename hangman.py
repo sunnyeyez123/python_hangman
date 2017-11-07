@@ -179,9 +179,6 @@ def guess(targeted):
 
 def play():
 
-	print "Welcome to Hang_words." 
-	print "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. "
-	print 
 	global wins
 	global losses
 
@@ -274,4 +271,7 @@ def reset_values():
 	display = ""
 
 
+print "Welcome to Hang_words." 
+print "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. "
+print 
 play()
