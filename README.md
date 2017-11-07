@@ -1,4 +1,4 @@
-# python_hangman
+# Python_hangman
 An elevated game of hangman built in python
 
 ## How to play
