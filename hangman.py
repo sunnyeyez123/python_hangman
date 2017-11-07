@@ -18,15 +18,40 @@ losses = 0
 
 
 '''
+Allows the user to choose between the two game types: words or phrases. There is only one difficulty level for phrases.
+'''
+def choose_game_type():
+	options = ['p', 'w', 'P', 'W']
+	choice = raw_input("Choose game type: w for words. p for phrases.")
+	if choice.isalpha():
+		if len(choice) ==1:
+			if choice in options:
+				choice = choice.lower()
+			else:
+				print "That's not one of the options I game you. You never listen. Goodbye"
+				sys.exit()
+		else:
+			print "I only need one letter. You never listen. Goodbye"
+			sys.exit()
+	else: 
+		print "Letters only, gosh. You never listen. Goodbye"
+		sys.exit()
+
+	return choice
+
+
+
+'''
 Allows the user to choose the difficulty of the game. chooses between easy, medium and hard wordlists
 '''
 
 def choose_difficulty():
-	difficulty = ""
+	options = ['e', 'E', 'n', 'N', 'h', 'H']
+
 	choice = raw_input("Choose difficulty: e for easy. n for normal. h for hard. ")
 	if choice.isalpha():
 		if len(choice) ==1:
-			if choice == 'e' or choice == 'n' or choice == 'h':
+			if choice in options:
 				choice = choice.lower()
 			else:
 				print "That's not one of the options I game you. You never listen. Goodbye"
