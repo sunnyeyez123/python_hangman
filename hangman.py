@@ -112,11 +112,11 @@ they correctly guessed
 
 """
 
-def guess_letter(target_word):
+def guess(targeted):
 	correct_guess_text = ["You guessed it!", "Nice job!","That's right!","I see what you did there.", "Keep it up!", "Just a few more to go!"]
 	global chances 
 	global display
-	target = target_word
+	target = targeted
 	display = ""
 
 	guess = raw_input("Guess a letter: ")
@@ -172,15 +172,16 @@ def play():
 	if game_type == 'w':
 		difficulty = choose_difficulty()
 		target = word_game_setup(difficulty)
-	elif game_type = 'p':
+	elif game_type == 'p':
 		topic = choose_topic()
-		target = phrase_game_setup(topic)
-	else:
+		target = "This is a test"
+		#target = phrase_game_setup(topic)
+
 
 
 
 	while chances >0:
-		guess_letter(target)
+		guess(target)
 		print "You hace %s gueeses remaining." % chances
 		if display.replace(" ", "") == target:
 			print "That's right! The correct word is: %s" % target
