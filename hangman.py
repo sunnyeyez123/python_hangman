@@ -70,8 +70,14 @@ def choose_difficulty():
 '''
 Set up game by choosing the target word from a file
 '''
+def choose_topic():
+	pass
 
-def game_setup(difficulty):
+'''
+Set up game by choosing the target word from a file
+'''
+
+def word_game_setup(difficulty):
 
 	all_text = ""
 
@@ -91,6 +97,13 @@ def game_setup(difficulty):
 	target = word_list[random.randrange(0,len(word_list))]
 	#print target
 	return target
+
+'''
+Set up game by choosing the target word from a file
+'''
+
+def phrase_game_setup(topic):
+	pass
 
 """
 Lets the user submit a letter guess, validates the input,
@@ -153,9 +166,19 @@ def play():
 	print 
 	global wins
 	global losses
-	difficulty = choose_difficulty()
 
-	target = game_setup(difficulty)
+	game_type = choose_game_type()
+
+	if game_type == 'w':
+		difficulty = choose_difficulty()
+		target = word_game_setup(difficulty)
+	elif game_type = 'p':
+		topic = choose_topic()
+		target = phrase_game_setup(topic)
+	else:
+
+
+
 	while chances >0:
 		guess_letter(target)
 		print "You hace %s gueeses remaining." % chances
