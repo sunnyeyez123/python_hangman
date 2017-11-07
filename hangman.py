@@ -22,7 +22,7 @@ Allows the user to choose between the two game types: words or phrases. There is
 '''
 def choose_game_type():
 	options = ['p', 'w', 'P', 'W']
-	choice = raw_input("Choose game type: w for words. p for phrases.: ")
+	choice = raw_input("Choose game type: w for words. p for phrases: ")
 	if choice.isalpha():
 		if len(choice) ==1:
 			if choice in options:
@@ -169,7 +169,7 @@ def guess(targeted):
 		else:
 			#if its a space put a space if its a letter put an underscore
 			if n == ' ':
-				display+='/'
+				display+=' / '
 			else:
 				display+='_ '
 	print display 
@@ -193,12 +193,31 @@ def play():
 	elif game_type == 'p':
 		topic = choose_topic()
 		target = phrase_game_setup(topic)
+		#print target
+		#print len(target)
 
 
 	while chances >0:
 		guess(target)
 		print "You hace %s gueeses remaining." % chances
-		if display.replace(" ", "") == target:
+
+		test = ""
+
+		#grab the words
+		t_words = display.split("/")
+		#take out the spaces
+		for w in t_words:
+			test += w.replace(" ", "") +" "
+		#print len(test)
+
+		#remove trailing space
+		if test[len(test)-1] == ' ':
+			test = test[0:len(test)-1]
+		#print the new string
+		#print test
+		#print len(test)
+
+		if test == target:
 			print "That's right! The correct word is: %s" % target
 			print "You win!"
 			wins+=1
@@ -227,7 +246,9 @@ def play_again():
 				play()
 			else:
 				print "Thanks for playing!"
-				percent =(float(wins)/(wins+losses)) * 100
+				rounds = wins+losses
+				percent =(float(wins)/(rounds)) * 100
+				print "You played %d times" % rounds
 				print "You won %0.1f%% of games!" % percent
 				sys.exit()
 		else:
