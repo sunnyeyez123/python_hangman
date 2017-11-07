@@ -105,7 +105,7 @@ def phrase_game_setup(topic):
 	all_text = ""
 
 	if(topic) == 'i':
-		with open('phrases.txt', 'r') as open_file:
+		with open('idioms.txt', 'r') as open_file:
 		    all_text = open_file.read()
 
 	phrase_list = all_text.split("\n")
