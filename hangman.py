@@ -1,7 +1,7 @@
 
-'''
-Classic game of hangman with 3 difficulty levels, 6 chances to guess and the option to play again.
-'''
+''' A revised game of hangman with two game modes. You can guess words at 3
+difficulty levels or guess a common phrase. In each mode you only have 6
+chances to guess the right letter. You also have the option to play again. '''
 
 import random
 import sys
@@ -18,7 +18,7 @@ losses = 0
 
 
 '''
-Allows the user to choose between the two game types: words or phrases. There is only one difficulty level for phrases.
+Allows the user to choose between the two game types: words or phrases. 
 '''
 def choose_game_type():
 	options = ['p', 'w', 'P', 'W']
@@ -41,9 +41,9 @@ def choose_game_type():
 
 
 
-'''
-Allows the user to choose the difficulty of the game. chooses between easy, medium and hard wordlists
-'''
+''' Allows the user to choose the difficulty of a word game. chooses between
+easy, medium and hard wordlists. There is only one difficulty level for
+phrases. '''
 
 def choose_difficulty():
 	options = ['e', 'E', 'n', 'N', 'h', 'H']
@@ -67,14 +67,13 @@ def choose_difficulty():
 	return choice
 
 
-'''
-Set up game by choosing the target word from a file
-'''
-def choose_topic():
+''' Allows the user to choose the topic of the phrases for a phrase. Currently
+hardcoded to i for idioms ''' 
+def choose_topic():     
 	return 'i'
 	
 '''
-Set up game by choosing the target word from a file
+Set up game by choosing the target word from a file based on difficulty
 '''
 
 def word_game_setup(difficulty):
@@ -99,7 +98,7 @@ def word_game_setup(difficulty):
 	return target
 
 '''
-Set up game by choosing the target word from a file
+Set up game by choosing the target phrase from a file based on topic
 '''
 
 def phrase_game_setup(topic):
@@ -119,9 +118,9 @@ def phrase_game_setup(topic):
 
 
 """
-Lets the user submit a letter guess, validates the input,
+Asks the user to submit a letter guess, then validates the input,
 shows the letters they missed or reveals the word with the letters
-they correctly guessed
+they correctly guessed.
 
 """
 
@@ -175,7 +174,8 @@ def guess(targeted):
 	print display 
 
 
-'''Starts the game and shares the victory or defeat message'''
+'''Starts the game, reviews the guessing progress and shares the victory or
+defeat message'''
 
 def play():
 
@@ -195,27 +195,29 @@ def play():
 
 
 	while chances >0:
+
+		current_guess = ""
+
 		guess(target)
 		print "You hace %s gueeses remaining." % chances
 
-		test = ""
 
 		#grab the words
-		t_words = display.split("/")
+		target_words = display.split("/")
 		#take out the spaces
-		for w in t_words:
-			test += w.replace(" ", "") +" "
+		for word in target_words:
+			current_guess  += word.replace(" ", "") +" "
 		#print len(test)
 
 		#remove trailing space
-		if test[len(test)-1] == ' ':
-			test = test[0:len(test)-1]
+		if current_guess [len(current_guess )-1] == ' ':
+			current_guess  = current_guess [0:len(current_guess )-1]
 		#print the new string
-		#print test
-		#print len(test)
+		#print current_guess
+		#print len(current_guess)
 
 		#what to do if you get the word/phrase right
-		if test == target:
+		if current_guess == target:
 			if game_type == 'p':
 				print "That's right! The correct phrase was: %s" % target
 			else:
@@ -235,7 +237,7 @@ def play():
 
 '''
 Asks the user if they want to play again. Kicks off a new game or ends the game session
-It also shares the win percentage when leaving the session.
+It also shares the win percentage and times played when leaving the session.
 '''
 
 def play_again():
