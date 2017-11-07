@@ -214,8 +214,12 @@ def play():
 		#print test
 		#print len(test)
 
+		#what to do if you get the word/phrase right
 		if test == target:
-			print "That's right! The correct word is: %s" % target
+			if game_type == 'p':
+				print "That's right! The correct phrase was: %s" % target
+			else:
+				print "That's right! The correct word was: %s" % target
 			print "You win!"
 			wins+=1
 			print "You've won %d times" % wins
