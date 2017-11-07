@@ -22,7 +22,7 @@ Allows the user to choose between the two game types: words or phrases. There is
 '''
 def choose_game_type():
 	options = ['p', 'w', 'P', 'W']
-	choice = raw_input("Choose game type: w for words. p for phrases.")
+	choice = raw_input("Choose game type: w for words. p for phrases.: ")
 	if choice.isalpha():
 		if len(choice) ==1:
 			if choice in options:
@@ -71,8 +71,8 @@ def choose_difficulty():
 Set up game by choosing the target word from a file
 '''
 def choose_topic():
-	pass
-
+	return 'i'
+	
 '''
 Set up game by choosing the target word from a file
 '''
@@ -103,7 +103,20 @@ Set up game by choosing the target word from a file
 '''
 
 def phrase_game_setup(topic):
-	pass
+	all_text = ""
+
+	if(topic) == 'i':
+		with open('phrases.txt', 'r') as open_file:
+		    all_text = open_file.read()
+
+	phrase_list = all_text.split("\n")
+	#choose random word
+	target = phrase_list[random.randrange(0,len(phrase_list))]
+	#try lowercasing the target
+	target = target.lower()
+	#print target
+	return target
+
 
 """
 Lets the user submit a letter guess, validates the input,
@@ -156,7 +169,7 @@ def guess(targeted):
 		else:
 			#if its a space put a space if its a letter put an underscore
 			if n == ' ':
-				display+='  '
+				display+='/'
 			else:
 				display+='_ '
 	print display 
@@ -166,7 +179,8 @@ def guess(targeted):
 
 def play():
 
-	print "Welcome to hang_words. You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. "
+	print "Welcome to Hang_words." 
+	print "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. "
 	print 
 	global wins
 	global losses
@@ -178,10 +192,7 @@ def play():
 		target = word_game_setup(difficulty)
 	elif game_type == 'p':
 		topic = choose_topic()
-		target = "This is a test"
-		#target = phrase_game_setup(topic)
-
-
+		target = phrase_game_setup(topic)
 
 
 	while chances >0:
