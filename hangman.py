@@ -67,8 +67,8 @@ def choose_difficulty():
 	return choice
 
 
-''' Allows the user to choose the topic of the phrases for a phrase. Currently
-hardcoded to i for idioms ''' 
+''' Allows the user to choose the topic of the phrases for a phrase. There are currently
+options to choose idioms or slogans''' 
 def choose_topic():     
 	options = ['i', 'I', 's', 'S']
 
