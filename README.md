@@ -10,11 +10,10 @@ Start by choosing a game mode. In either mode you'll need to complete the word o
 Guess a word from word lists at 3 different difficulties: easy, normal and hard. Easy words are at an elementary school reading level. Normal words are a middle school reading level. Hard words are at a high school reading level. 
 
 ### Phrases
-Guess a phrase from various topic lists. The current list contains English idioms. 
+Guess a phrase from various topic lists. You can choose between English idioms and company slogans. 
 
 
 ## Coming Soon
-- More topic lists for the phrase game mode
 - Being able to guess the full word or phrase
 - All time win streak
 - All time win percentage
