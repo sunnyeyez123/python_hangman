@@ -146,14 +146,15 @@ they correctly guessed.
 
 """
 
-def guess(targeted):
+def guess(targeted, game_type):
 	correct_guess_text = ["You guessed it!", "Nice job!","That's right!","I see what you did there.", "Keep it up!", "Just a few more to go!"]
 	global chances 
 	global display
 	target = targeted
 	display = ""
+	try_solve = False
 
-	guess = raw_input("Guess a letter: ")
+	guess = raw_input("Guess a letter or type 'solve': ")
 
 
 	if guess.isalpha():
@@ -176,6 +177,13 @@ def guess(targeted):
 				else:
 					print "You already guessed that. Try again"
 
+		elif guess == "solve":
+			try_solve =True
+			if game_type == 'p':
+				solution = raw_input("Enter the full phrase: ")
+			else:
+				solution = raw_input("Enter the full phrase: ")
+
 		else:
 			if guess == "exit" or guess == "quit":
 				sys.exit()
@@ -184,25 +192,31 @@ def guess(targeted):
 	else:
 		print "Try guessing a letter"
 
-	for n in target:
-		if n in discovered:
-			display+= n + ' '
+	if try_solve:
+		if solution == target:
+			you_win(game_type,target)
 		else:
-			#if its a space put a space if its a letter put an underscore
-			if n == ' ':
-				display+=' / '
+			you_lose(game_type,target)
+		
+	else:
+		for n in target:
+			if n in discovered:
+				display+= n + ' '
 			else:
-				display+='_ '
-	print display 
+				#if its a space put a space if its a letter put an underscore
+				if n == ' ':
+					display+=' / '
+				else:
+					display+='_ '
+		print display
+			
+
 
 
 '''Starts the game, reviews the guessing progress and shares the victory or
 defeat message'''
 
 def play():
-
-	global wins
-	global losses
 
 	game_type = choose_game_type()
 
@@ -220,10 +234,11 @@ def play():
 
 		current_guess = ""
 
-		guess(target)
-		print "You hace %s guesses remaining." % chances
+		guess(target, game_type)
+		print "You have %s guesses remaining." % chances
 
 
+	
 		#grab the words
 		target_words = display.split("/")
 		#take out the spaces
@@ -240,21 +255,38 @@ def play():
 
 		#what to do if you get the word/phrase right
 		if current_guess == target:
-			if game_type == 'p':
-				print "That's right! The correct phrase was: %s" % target
-			else:
-				print "That's right! The correct word was: %s" % target
-			print "You win!"
-			wins+=1
-			print "You've won %d times" % wins
- 			play_again()	
-	else:
-		print "Game Over! You Lose"
-		print "The correct word was: %s" % target
-		losses+=1
-		print "You've lost %d time(s)" % losses
+			you_win(game_type, target)
 
-		play_again()
+	else:
+		you_lose(game_type,target)
+		
+
+
+def you_win(game_type, target):
+	global wins
+
+	if game_type == 'p':
+		print "That's right! The correct phrase was: %s" % target
+	else:
+		print "That's right! The correct word was: %s" % target
+	print "You win!"
+	wins+=1
+	print "You've won %d times" % wins
+	play_again()
+
+def you_lose(game_type,target):
+	global losses
+
+	print "Game Over! You Lose"
+	if game_type == 'p':
+		print "The correct phrase was: %s" % target
+	else:
+		print "The correct word was: %s" % target
+	
+	losses+=1
+	print "You've lost %d time(s)" % losses
+	play_again()
+
 
 
 '''
