@@ -70,7 +70,25 @@ def choose_difficulty():
 ''' Allows the user to choose the topic of the phrases for a phrase. Currently
 hardcoded to i for idioms ''' 
 def choose_topic():     
-	return 'i'
+	options = ['i', 'I', 's', 'S']
+
+	choice = raw_input("Choose difficulty: i for idioms. s for slogans: ")
+	if choice.isalpha():
+		if len(choice) ==1:
+			if choice in options:
+				choice = choice.lower()
+			else:
+				print "That's not one of the options I game you. You never listen. Goodbye"
+				sys.exit()
+		else:
+			print "I only need one letter. You never listen. Goodbye"
+			sys.exit()
+	else: 
+		print "Letters only, gosh. You never listen. Goodbye"
+		sys.exit()
+
+
+	return choice
 	
 '''
 Set up game by choosing the target word from a file based on difficulty
@@ -107,6 +125,10 @@ def phrase_game_setup(topic):
 	if(topic) == 'i':
 		with open('idioms.txt', 'r') as open_file:
 		    all_text = open_file.read()
+	elif(topic) == 's':
+		with open('slogans.txt', 'r') as open_file:
+		    all_text = open_file.read()
+
 
 	phrase_list = all_text.split("\n")
 	#choose random word
