@@ -221,7 +221,7 @@ def play():
 		current_guess = ""
 
 		guess(target)
-		print "You hace %s gueeses remaining." % chances
+		print "You hace %s guesses remaining." % chances
 
 
 		#grab the words
