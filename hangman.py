@@ -195,7 +195,7 @@ def guess(targeted, game_type):
 			if game_type == 'p':
 				solution = raw_input("Enter the full phrase: ")
 			else:
-				solution = raw_input("Enter the full phrase: ")
+				solution = raw_input("Enter the full word: ")
 
 		else:
 			if guess == "exit" or guess == "quit":
@@ -212,19 +212,21 @@ def guess(targeted, game_type):
 			you_lose(game_type,target)
 		
 	else:
-		for n in target:
-			if n in discovered:
-				display+= n + ' '
+		print_progress(target, discovered, display)
+
+'''Starts the game, reviews the guessing progress and shares the victory or
+defeat message'''
+def print_progress(target, discovered, display):
+	for n in target:
+		if n in discovered:
+			display+= n + ' '
+		else:
+			#if its a space put a space if its a letter put an underscore
+			if n == ' ':
+				display+=' / '
 			else:
-				#if its a space put a space if its a letter put an underscore
-				if n == ' ':
-					display+=' / '
-				else:
-					display+='_ '
-		print display
-			
-
-
+				display+='_ '	
+	print display +'\n'
 
 '''Starts the game, reviews the guessing progress and shares the victory or
 defeat message'''
@@ -242,6 +244,8 @@ def play():
 		#print target
 		#print len(target)
 
+	print "Alright, let's get started. Can you solve this: "+'\n'
+	print_progress(target, discovered, display)
 
 	while chances >0:
 
