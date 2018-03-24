@@ -167,7 +167,7 @@ def guess(targeted, game_type):
 	display = ""
 	try_solve = False
 
-	guess = raw_input("Guess a letter or type 'solve' to solve it: ")
+	guess = raw_input("Guess a letter or type 'solve': ")
 
 
 	if guess.isalpha():
@@ -177,10 +177,10 @@ def guess(targeted, game_type):
 			if guess not in target:
 				if guess not in missed:
 					missed.append(guess)
-					print "That's not right. Try again"
+					print "That's not right. Try again."
 					chances -=1
 				else:
-					print "You already guessed that. Try again"
+					print "You already guessed that. Try again."
 				print "Missed Letters: ",				
 				print missed
 			else:
@@ -188,7 +188,7 @@ def guess(targeted, game_type):
 					discovered.append(guess)
 					print correct_guess_text[random.randrange(0, len(correct_guess_text))]
 				else:
-					print "You already guessed that. Try again"
+					print "You already guessed that. Try again."
 
 		elif guess == "solve":
 			try_solve =True
@@ -201,7 +201,7 @@ def guess(targeted, game_type):
 			if guess == "exit" or guess == "quit":
 				sys.exit()
 			else:
-				print "You can only guess one letter at a time"
+				print "You can only guess one letter at a time."
 	else:
 		print "Try guessing a letter"
 
@@ -244,7 +244,7 @@ def play():
 		#print target
 		#print len(target)
 
-	print "Alright, let's get started. Can you solve this: "+'\n'
+	print "Alright, let's get started. Can you solve this? : "+'\n'
 	print_progress(target, discovered, display)
 
 	while chances >0:
@@ -326,10 +326,10 @@ def play_again():
 				print "You won %0.1f%% of games!" % percent
 				sys.exit()
 		else:
-			print "I only wanted one letter. You never listen. Goodbye"
+			print "I only wanted one letter. You never listen. Goodbye."
 			sys.exit()
 	else:
-		print "C'mon I asked for letters. You never listen. Goodbye"
+		print "C'mon I asked for letters. You never listen. Goodbye."
 		sys.exit()
 
 '''
