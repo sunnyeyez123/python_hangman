@@ -41,6 +41,19 @@ def choose_game_type():
 
 
 
+'''
+Allows the user to choose a username
+'''
+def get_username():
+	name = raw_input("What's your name?")
+	print "Nice to meet you, " + name
+	print "I'll be keeping track of your highscore. Good Luck!exi"
+
+	return name
+
+
+
+
 ''' Allows the user to choose the difficulty of a word game. chooses between
 easy, medium and hard wordlists. There is only one difficulty level for
 phrases. '''
@@ -330,8 +343,12 @@ def reset_values():
 	discovered = []
 	display = ""
 
+'''
+The action starts here
+'''
 
 print "Welcome to Hang_words." 
 print "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. "
 print 
+username = get_username()
 play()
