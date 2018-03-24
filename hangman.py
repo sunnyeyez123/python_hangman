@@ -45,9 +45,9 @@ def choose_game_type():
 Allows the user to choose a username
 '''
 def get_username():
-	name = raw_input("What's your name?")
+	name = raw_input("What's your name? ")
 	print "Nice to meet you, " + name
-	print "I'll be keeping track of your highscore. Good Luck!exi"
+	print "I'll be keeping track of your highscore. Good Luck! " + '\n'
 
 	return name
 
@@ -167,7 +167,7 @@ def guess(targeted, game_type):
 	display = ""
 	try_solve = False
 
-	guess = raw_input("Guess a letter or type 'solve': ")
+	guess = raw_input("Guess a letter or type 'solve' to solve it: ")
 
 
 	if guess.isalpha():
