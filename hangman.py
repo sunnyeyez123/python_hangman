@@ -12,6 +12,7 @@ chances = 6
 missed = []
 discovered = []
 display = ""
+username = ""
 #these are never reset during a session
 wins = 0
 losses = 0
@@ -210,13 +211,13 @@ def guess(targeted, game_type):
 			you_win(game_type,target)
 		else:
 			you_lose(game_type,target)
-		
 	else:
 		print_progress(target, discovered, display)
 
 '''Starts the game, reviews the guessing progress and shares the victory or
 defeat message'''
 def print_progress(target, discovered, display):
+
 	for n in target:
 		if n in discovered:
 			display+= n + ' '
@@ -241,11 +242,11 @@ def play():
 	elif game_type == 'p':
 		topic = choose_topic()
 		target = phrase_game_setup(topic)
-		#print target
-		#print len(target)
+	print target
+	#print len(target)
 
 	print "Alright, let's get started. Can you solve this? : "+'\n'
-	print_progress(target, discovered, display)
+	#print_progress(target, discovered, display)
 
 	while chances >0:
 
@@ -253,8 +254,6 @@ def play():
 
 		guess(target, game_type)
 		print "You have %s guesses remaining." % chances
-
-
 	
 		#grab the words
 		target_words = display.split("/")
@@ -312,6 +311,7 @@ It also shares the win percentage and times played when leaving the session.
 '''
 
 def play_again():
+	save_highscore()
 	again = raw_input("Wanna play again? Y/N: ")
 	if again.isalpha():
 		if len(again) ==1:
@@ -341,11 +341,28 @@ def reset_values():
 	global missed
 	global discovered
 	global display
+	global username
 
 	chances = 6
 	missed = []
 	discovered = []
 	display = ""
+	username = ""
+
+
+'''
+Saves the high score of the current user
+'''
+
+def save_highscore():
+	global username
+	global wins
+	f = open("highscores.txt", "a+")
+	print  "saving highscore"
+	line = "%s - %d" % (username, wins)
+	f.write(line +'\n')
+	f.close
+
 
 '''
 The action starts here
