@@ -29,13 +29,13 @@ def choose_game_type():
 			if choice in options:
 				choice = choice.lower()
 			else:
-				print "That's not one of the options I game you. You never listen. Goodbye"
+				print bcolors.WARNING + "That's not one of the options I gave you. You never listen. Goodbye" + bcolors.ENDC
 				sys.exit()
 		else:
-			print "I only need one letter. You never listen. Goodbye"
+			print bcolors.WARNING + "I only need one letter. You never listen. Goodbye" + bcolors.ENDC
 			sys.exit()
 	else: 
-		print "Letters only, gosh. You never listen. Goodbye"
+		print bcolors.WARNING + "Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC
 		sys.exit()
 
 	return choice
@@ -68,13 +68,13 @@ def choose_difficulty():
 			if choice in options:
 				choice = choice.lower()
 			else:
-				print "That's not one of the options I game you. You never listen. Goodbye"
+				print bcolors.WARNING +"That's not one of the options I game you. You never listen. Goodbye" + bcolors.ENDC
 				sys.exit()
 		else:
-			print "I only need one letter. You never listen. Goodbye"
+			print bcolors.WARNING +"I only need one letter. You never listen. Goodbye" + bcolors.ENDC
 			sys.exit()
 	else: 
-		print "Letters only, gosh. You never listen. Goodbye"
+		print bcolors.WARNING +"Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC
 		sys.exit()
 
 
@@ -92,13 +92,13 @@ def choose_topic():
 			if choice in options:
 				choice = choice.lower()
 			else:
-				print "That's not one of the options I game you. You never listen. Goodbye"
+				print bcolors.WARNING +"That's not one of the options I game you. You never listen. Goodbye" + bcolors.ENDC
 				sys.exit()
 		else:
-			print "I only need one letter. You never listen. Goodbye"
+			print bcolors.WARNING +"I only need one letter. You never listen. Goodbye" + bcolors.ENDC
 			sys.exit()
 	else: 
-		print "Letters only, gosh. You never listen. Goodbye"
+		print bcolors.WARNING +"Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC
 		sys.exit()
 
 
@@ -181,15 +181,15 @@ def guess(targeted, game_type):
 					print "That's not right. Try again."
 					chances -=1
 				else:
-					print "You already guessed that. Try again."
-				print "Missed Letters: ",				
-				print missed
+					print bcolors.WARNING + "You already guessed that. Try again." + bcolors.ENDC
+				print "Missed Letters: ",
+				print missed				
 			else:
 				if guess not in discovered:
 					discovered.append(guess)
 					print correct_guess_text[random.randrange(0, len(correct_guess_text))]
 				else:
-					print "You already guessed that. Try again."
+					print bcolors.WARNING + "You already guessed that. Try again." + bcolors.ENDC
 
 		elif guess == "solve":
 			try_solve =True
@@ -202,7 +202,7 @@ def guess(targeted, game_type):
 			if guess == "exit" or guess == "quit":
 				sys.exit()
 			else:
-				print "You can only guess one letter at a time."
+				print bcolors.WARNING +"You can only guess one letter at a time."  + bcolors.ENDC
 	else:
 		print "Try guessing a letter"
 
@@ -212,22 +212,17 @@ def guess(targeted, game_type):
 		else:
 			you_lose(game_type,target)
 	else:
-		print_progress(target, discovered, display)
-
-'''Starts the game, reviews the guessing progress and shares the victory or
-defeat message'''
-def print_progress(target, discovered, display):
-
-	for n in target:
-		if n in discovered:
-			display+= n + ' '
-		else:
-			#if its a space put a space if its a letter put an underscore
-			if n == ' ':
-				display+=' / '
+		for n in target:
+			if n in discovered:
+				display+= n + ' '
 			else:
-				display+='_ '	
-	print display +'\n'
+				#if its a space put a space if its a letter put an underscore
+				if n == ' ':
+					display+=' / '
+				else:
+					display+='_ '
+		print display
+
 
 '''Starts the game, reviews the guessing progress and shares the victory or
 defeat message'''
@@ -246,7 +241,11 @@ def play():
 	#print len(target)
 
 	print "Alright, let's get started. Can you solve this? : "+'\n'
-	#print_progress(target, discovered, display)
+
+	#print the empty guess list
+	for letter in target:
+		print "_ ",
+	print '\n'	
 
 	while chances >0:
 
@@ -261,7 +260,6 @@ def play():
 		for word in target_words:
 			current_guess  += word.replace(" ", "") +" "
 		#print len(test)
-
 		#remove trailing space
 		if current_guess [len(current_guess )-1] == ' ':
 			current_guess  = current_guess [0:len(current_guess )-1]
@@ -363,6 +361,20 @@ def save_highscore():
 	f.write(line +'\n')
 	f.close
 
+
+'''
+colors
+'''
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 '''
 The action starts here
