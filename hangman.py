@@ -41,7 +41,6 @@ def choose_game_type():
 	return choice
 
 
-
 '''
 Allows the user to choose a username
 '''
@@ -53,11 +52,8 @@ def get_username():
 	return name
 
 
-
-
 ''' Allows the user to choose the difficulty of a word game. chooses between
-easy, medium and hard wordlists. There is only one difficulty level for
-phrases. '''
+easy, medium and hard wordlists.'''
 
 def choose_difficulty():
 	options = ['e', 'E', 'n', 'N', 'h', 'H']
@@ -104,10 +100,10 @@ def choose_topic():
 
 	return choice
 	
+
 '''
 Set up game by choosing the target word from a file based on difficulty
 '''
-
 def word_game_setup(difficulty):
 
 	all_text = ""
@@ -123,6 +119,7 @@ def word_game_setup(difficulty):
 		with open('hang_words.txt', 'r') as open_file:
 		    all_text = open_file.read()
 
+	#create a list of words from the file text
 	word_list = all_text.split("\n")
 	#choose random word
 	target = word_list[random.randrange(0,len(word_list))]
@@ -143,7 +140,7 @@ def phrase_game_setup(topic):
 		with open('slogans.txt', 'r') as open_file:
 		    all_text = open_file.read()
 
-
+	#create a list of words from the file text
 	phrase_list = all_text.split("\n")
 	#choose random word
 	target = phrase_list[random.randrange(0,len(phrase_list))]
@@ -161,21 +158,26 @@ they correctly guessed.
 """
 
 def guess(targeted, game_type):
-	correct_guess_text = ["You guessed it!", "Nice job!","That's right!","I see what you did there.", "Keep it up!", "Just a few more to go!"]
 	global chances 
 	global display
+
+	correct_guess_text = ["You guessed it!", "Nice job!","That's right!","I see what you did there.", "Keep it up!", "Just a few more to go!"]
 	target = targeted
 	display = ""
-	try_solve = False
+	try_to_solve = False
 
+	#ask user to guess a letter
 	guess = raw_input("Guess a letter or type 'solve': ")
 
-
-	if guess.isalpha():
-		if len(guess) ==1:
-			guess = guess.lower()
-			#print "You guessed:  %s" % guess 
-			if guess not in target:
+	#validate the input
+	#check if they guessed a letter
+	if guess.isalpha(): 
+		#check if they guess only 1 letter
+		if len(guess) ==1: 
+			#make everything lowercase
+			guess = guess.lower() 
+			#build a list of missed letters
+			if guess not in target: 
 				if guess not in missed:
 					missed.append(guess)
 					print "That's not right. Try again."
@@ -183,30 +185,33 @@ def guess(targeted, game_type):
 				else:
 					print bcolors.WARNING + "You already guessed that. Try again." + bcolors.ENDC
 				print "Missed Letters: ",
-				print missed				
+				print missed	
+			#build a list of discovered letters			
 			else:
 				if guess not in discovered:
 					discovered.append(guess)
 					print correct_guess_text[random.randrange(0, len(correct_guess_text))]
 				else:
 					print bcolors.WARNING + "You already guessed that. Try again." + bcolors.ENDC
-
+		#check if they're trying to solve the word or phrase and collect input			
 		elif guess == "solve":
-			try_solve =True
+			try_to_solve =True
 			if game_type == 'p':
 				solution = raw_input("Enter the full phrase: ")
 			else:
 				solution = raw_input("Enter the full word: ")
-
+		#check if they're trying to exit the game.
 		else:
 			if guess == "exit" or guess == "quit":
+				print "Thanks for playing"
 				sys.exit()
 			else:
 				print bcolors.WARNING +"You can only guess one letter at a time."  + bcolors.ENDC
 	else:
-		print "Try guessing a letter"
+		print bcolors.WARNING +"Try guessing a letter" + bcolors.ENDC
 
-	if try_solve:
+	#if they tried to solve check they're answer
+	if try_to_solve:
 		if solution == target:
 			you_win(game_type,target)
 		else:
@@ -229,45 +234,46 @@ defeat message'''
 
 def play():
 
+	#set up the game
 	game_type = choose_game_type()
-
 	if game_type == 'w':
 		difficulty = choose_difficulty()
 		target = word_game_setup(difficulty)
 	elif game_type == 'p':
 		topic = choose_topic()
 		target = phrase_game_setup(topic)
-	print target
-	#print len(target)
+	challenge = ""
 
+	#challenge them
 	print "Alright, let's get started. Can you solve this? : "+'\n'
 
-	#print the empty guess list
+	#print the challenge
 	for letter in target:
-		print "_ ",
-	print '\n'	
+		if letter == ' ':
+			challenge+=' / '
+		else:
+			challenge+='_ '
+	print challenge	
 
+	#CORE GAME LOOP. Play until you run out of guesses
 	while chances >0:
 
 		current_guess = ""
 
 		guess(target, game_type)
 		print "You have %s guesses remaining." % chances
+		print
 	
-		#grab the words
+		#FORMAT THE WORDS
 		target_words = display.split("/")
 		#take out the spaces
 		for word in target_words:
 			current_guess  += word.replace(" ", "") +" "
-		#print len(test)
 		#remove trailing space
 		if current_guess [len(current_guess )-1] == ' ':
 			current_guess  = current_guess [0:len(current_guess )-1]
-		#print the new string
-		#print current_guess
-		#print len(current_guess)
 
-		#what to do if you get the word/phrase right
+		#check if their guess is correct before letting them guess again
 		if current_guess == target:
 			you_win(game_type, target)
 
@@ -275,32 +281,39 @@ def play():
 		you_lose(game_type,target)
 		
 
-
+''' Shares the victory messages depending on the game type'''
 def you_win(game_type, target):
 	global wins
 
+	print bcolors.OKGREEN + "You win!" + bcolors.ENDC
 	if game_type == 'p':
-		print "That's right! The correct phrase was: %s" % target
+		print "That's right! The correct phrase was: %s" % target 
 	else:
-		print "That's right! The correct word was: %s" % target
-	print "You win!"
+		print  "That's right! The correct word was: %s"  % target
+
+	#update their wins
 	wins+=1
 	print "You've won %d times" % wins
+	print
+	#ask if they want to play again
 	play_again()
+
+''' Shares the defeat messages depending on the game type'''
 
 def you_lose(game_type,target):
 	global losses
 
-	print "Game Over! You Lose"
+	print  bcolors.FAIL + "Game Over! You Lose" + bcolors.ENDC
 	if game_type == 'p':
 		print "The correct phrase was: %s" % target
 	else:
 		print "The correct word was: %s" % target
 	
+	#update their losses
 	losses+=1
 	print "You've lost %d time(s)" % losses
+	#ask if they want to play again
 	play_again()
-
 
 
 '''
@@ -314,9 +327,11 @@ def play_again():
 	if again.isalpha():
 		if len(again) ==1:
 			if again.lower() == 'y':
+				print "Yay! Let's go again" +'\n'
 				reset_values()
 				play()
 			else:
+				#provide a summary of stats and thanks them for playing
 				print "Thanks for playing!"
 				rounds = wins+losses
 				percent =(float(wins)/(rounds)) * 100
@@ -324,10 +339,10 @@ def play_again():
 				print "You won %0.1f%% of games!" % percent
 				sys.exit()
 		else:
-			print "I only wanted one letter. You never listen. Goodbye."
+			print "I'm going to assume you meant no"
 			sys.exit()
 	else:
-		print "C'mon I asked for letters. You never listen. Goodbye."
+		print "I'm going to assume you meant no"
 		sys.exit()
 
 '''
@@ -347,7 +362,6 @@ def reset_values():
 	display = ""
 	username = ""
 
-
 '''
 Saves the high score of the current user
 '''
@@ -355,15 +369,16 @@ Saves the high score of the current user
 def save_highscore():
 	global username
 	global wins
+	#open or create a file to save the high scores and username in
+
 	f = open("highscores.txt", "a+")
-	print  "saving highscore"
 	line = "%s - %d" % (username, wins)
 	f.write(line +'\n')
 	f.close
 
 
 '''
-colors
+CLI colors
 '''
 
 class bcolors:
@@ -381,7 +396,7 @@ The action starts here
 '''
 
 print "Welcome to Hang_words." 
-print "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. "
+print "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. " 
 print 
 username = get_username()
 play()
