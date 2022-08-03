@@ -23,19 +23,19 @@ Allows the user to choose between the two game types: words or phrases.
 '''
 def choose_game_type():
 	options = ['p', 'w', 'P', 'W']
-	choice = raw_input("Choose game type: w for words. p for phrases: ")
+	choice = input("Choose game type: w for words. p for phrases: ")
 	if choice.isalpha():
 		if len(choice) ==1:
 			if choice in options:
 				choice = choice.lower()
 			else:
-				print bcolors.WARNING + "That's not one of the options I gave you. You never listen. Goodbye" + bcolors.ENDC
+				print( bcolors.WARNING + "That's not one of the options I gave you. You never listen. Goodbye" + bcolors.ENDC)
 				sys.exit()
 		else:
-			print bcolors.WARNING + "I only need one letter. You never listen. Goodbye" + bcolors.ENDC
+			print( bcolors.WARNING + "I only need one letter. You never listen. Goodbye" + bcolors.ENDC)
 			sys.exit()
 	else: 
-		print bcolors.WARNING + "Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC
+		print( bcolors.WARNING + "Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC)
 		sys.exit()
 
 	return choice
@@ -45,9 +45,9 @@ def choose_game_type():
 Allows the user to choose a username
 '''
 def get_username():
-	name = raw_input("What's your name? ")
-	print "Nice to meet you, " + name
-	print "I'll be keeping track of your highscore. Good Luck! " + '\n'
+	name = input("What's your name? ")
+	print( "Nice to meet you, " + name)
+	print( "I'll be keeping track of your highscore. Good Luck! " + '\n')
 
 	return name
 
@@ -58,19 +58,19 @@ easy, medium and hard wordlists.'''
 def choose_difficulty():
 	options = ['e', 'E', 'n', 'N', 'h', 'H']
 
-	choice = raw_input("Choose difficulty: e for easy. n for normal. h for hard. ")
+	choice = input("Choose difficulty: e for easy. n for normal. h for hard. ")
 	if choice.isalpha():
 		if len(choice) ==1:
 			if choice in options:
 				choice = choice.lower()
 			else:
-				print bcolors.WARNING +"That's not one of the options I game you. You never listen. Goodbye" + bcolors.ENDC
+				print( bcolors.WARNING +"That's not one of the options I game you. You never listen. Goodbye" + bcolors.ENDC)
 				sys.exit()
 		else:
-			print bcolors.WARNING +"I only need one letter. You never listen. Goodbye" + bcolors.ENDC
+			print( bcolors.WARNING +"I only need one letter. You never listen. Goodbye" + bcolors.ENDC)
 			sys.exit()
 	else: 
-		print bcolors.WARNING +"Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC
+		print( bcolors.WARNING +"Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC)
 		sys.exit()
 
 
@@ -82,19 +82,19 @@ options to choose idioms or slogans'''
 def choose_topic():     
 	options = ['i', 'I', 's', 'S']
 
-	choice = raw_input("Choose difficulty: i for idioms. s for slogans: ")
+	choice = input("Choose difficulty: i for idioms. s for slogans: ")
 	if choice.isalpha():
 		if len(choice) ==1:
 			if choice in options:
 				choice = choice.lower()
 			else:
-				print bcolors.WARNING +"That's not one of the options I game you. You never listen. Goodbye" + bcolors.ENDC
+				print( bcolors.WARNING +"That's not one of the options I game you. You never listen. Goodbye" + bcolors.ENDC)
 				sys.exit()
 		else:
-			print bcolors.WARNING +"I only need one letter. You never listen. Goodbye" + bcolors.ENDC
+			print( bcolors.WARNING +"I only need one letter. You never listen. Goodbye" + bcolors.ENDC)
 			sys.exit()
 	else: 
-		print bcolors.WARNING +"Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC
+		print( bcolors.WARNING +"Letters only, gosh. You never listen. Goodbye" + bcolors.ENDC)
 		sys.exit()
 
 
@@ -123,7 +123,7 @@ def word_game_setup(difficulty):
 	word_list = all_text.split("\n")
 	#choose random word
 	target = word_list[random.randrange(0,len(word_list))]
-	#print target
+	#print( target)
 	return target
 
 '''
@@ -146,7 +146,7 @@ def phrase_game_setup(topic):
 	target = phrase_list[random.randrange(0,len(phrase_list))]
 	#try lowercasing the target
 	target = target.lower()
-	#print target
+	#print( target)
 	return target
 
 
@@ -167,7 +167,7 @@ def guess(targeted, game_type):
 	try_to_solve = False
 
 	#ask user to guess a letter
-	guess = raw_input("Guess a letter or type 'solve': ")
+	guess = input("Guess a letter or type 'solve': ")
 
 	#validate the input
 	#check if they guessed a letter
@@ -180,35 +180,35 @@ def guess(targeted, game_type):
 			if guess not in target: 
 				if guess not in missed:
 					missed.append(guess)
-					print "That's not right. Try again."
+					print( "That's not right. Try again.")
 					chances -=1
 				else:
-					print bcolors.WARNING + "You already guessed that. Try again." + bcolors.ENDC
-				print "Missed Letters: ",
-				print missed	
+					print( bcolors.WARNING + "You already guessed that. Try again." + bcolors.ENDC)
+				print( "Missed Letters: ",)
+				print( missed	)
 			#build a list of discovered letters			
 			else:
 				if guess not in discovered:
 					discovered.append(guess)
-					print correct_guess_text[random.randrange(0, len(correct_guess_text))]
+					print( correct_guess_text[random.randrange(0, len(correct_guess_text))])
 				else:
-					print bcolors.WARNING + "You already guessed that. Try again." + bcolors.ENDC
+					print( bcolors.WARNING + "You already guessed that. Try again." + bcolors.ENDC)
 		#check if they're trying to solve the word or phrase and collect input			
 		elif guess == "solve":
 			try_to_solve =True
 			if game_type == 'p':
-				solution = raw_input("Enter the full phrase: ")
+				solution = input("Enter the full phrase: ")
 			else:
-				solution = raw_input("Enter the full word: ")
+				solution = input("Enter the full word: ")
 		#check if they're trying to exit the game.
 		else:
 			if guess == "exit" or guess == "quit":
-				print "Thanks for playing"
+				print( "Thanks for playing")
 				sys.exit()
 			else:
-				print bcolors.WARNING +"You can only guess one letter at a time."  + bcolors.ENDC
+				print( bcolors.WARNING +"You can only guess one letter at a time."  + bcolors.ENDC)
 	else:
-		print bcolors.WARNING +"Try guessing a letter" + bcolors.ENDC
+		print( bcolors.WARNING +"Try guessing a letter" + bcolors.ENDC)
 
 	#if they tried to solve check they're answer
 	if try_to_solve:
@@ -226,7 +226,7 @@ def guess(targeted, game_type):
 					display+=' / '
 				else:
 					display+='_ '
-		print display
+		print( display)
 
 
 '''Starts the game, reviews the guessing progress and shares the victory or
@@ -245,15 +245,15 @@ def play():
 	challenge = ""
 
 	#challenge them
-	print "Alright, let's get started. Can you solve this? : "+'\n'
+	print( "Alright, let's get started. Can you solve this? : "+'\n')
 
-	#print the challenge
+	#print( the challenge)
 	for letter in target:
 		if letter == ' ':
 			challenge+=' / '
 		else:
 			challenge+='_ '
-	print challenge	
+	print( challenge	)
 
 	#CORE GAME LOOP. Play until you run out of guesses
 	while chances >0:
@@ -261,8 +261,8 @@ def play():
 		current_guess = ""
 
 		guess(target, game_type)
-		print "You have %s guesses remaining." % chances
-		print
+		print( "You have %s guesses remaining." % chances)
+		print()
 	
 		#FORMAT THE WORDS
 		target_words = display.split("/")
@@ -285,16 +285,16 @@ def play():
 def you_win(game_type, target):
 	global wins
 
-	print bcolors.OKGREEN + "You win!" + bcolors.ENDC
+	print( bcolors.OKGREEN + "You win!" + bcolors.ENDC)
 	if game_type == 'p':
-		print "That's right! The correct phrase was: %s" % target 
+		print( "That's right! The correct phrase was: %s" % target )
 	else:
-		print  "That's right! The correct word was: %s"  % target
+		print(  "That's right! The correct word was: %s"  % target)
 
 	#update their wins
 	wins+=1
-	print "You've won %d times" % wins
-	print
+	print( "You've won %d times" % wins)
+	print()
 	#ask if they want to play again
 	play_again()
 
@@ -303,15 +303,15 @@ def you_win(game_type, target):
 def you_lose(game_type,target):
 	global losses
 
-	print  bcolors.FAIL + "Game Over! You Lose" + bcolors.ENDC
+	print(  bcolors.FAIL + "Game Over! You Lose" + bcolors.ENDC)
 	if game_type == 'p':
-		print "The correct phrase was: %s" % target
+		print( "The correct phrase was: %s" % target)
 	else:
-		print "The correct word was: %s" % target
+		print( "The correct word was: %s" % target)
 	
 	#update their losses
 	losses+=1
-	print "You've lost %d time(s)" % losses
+	print( "You've lost %d time(s)" % losses)
 	#ask if they want to play again
 	play_again()
 
@@ -323,26 +323,26 @@ It also shares the win percentage and times played when leaving the session.
 
 def play_again():
 	save_highscore()
-	again = raw_input("Wanna play again? Y/N: ")
+	again = input("Wanna play again? Y/N: ")
 	if again.isalpha():
 		if len(again) ==1:
 			if again.lower() == 'y':
-				print "Yay! Let's go again" +'\n'
+				print( "Yay! Let's go again" +'\n')
 				reset_values()
 				play()
 			else:
 				#provide a summary of stats and thanks them for playing
-				print "Thanks for playing!"
+				print( "Thanks for playing!")
 				rounds = wins+losses
 				percent =(float(wins)/(rounds)) * 100
-				print "You played %d times" % rounds
-				print "You won %0.1f%% of games!" % percent
+				print( "You played %d times" % rounds)
+				print( "You won %0.1f%% of games!" % percent)
 				sys.exit()
 		else:
-			print "I'm going to assume you meant no"
+			print( "I'm going to assume you meant no")
 			sys.exit()
 	else:
-		print "I'm going to assume you meant no"
+		print( "I'm going to assume you meant no")
 		sys.exit()
 
 '''
@@ -395,8 +395,8 @@ class bcolors:
 The action starts here
 '''
 
-print "Welcome to Hang_words." 
-print "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. " 
-print 
+print( "Welcome to Hang_words." )
+print( "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. " )
+print( )
 username = get_username()
 play()
