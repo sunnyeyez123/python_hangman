@@ -3,8 +3,10 @@
 difficulty levels or guess a common phrase. In each mode you only have 6
 chances to guess the right letter. You also have the option to play again. '''
 
+from ast import IsNot
 import random
 import sys
+import json
 
 #Global Game Vars
 #Update in the 'Reset_values' method if you change these
@@ -13,6 +15,7 @@ missed = []
 discovered = []
 display = ""
 username = ""
+high_scores  = {}
 #these are never reset during a session
 wins = 0
 losses = 0
@@ -46,7 +49,12 @@ Allows the user to choose a username
 '''
 def get_username():
 	name = input("What's your name? ")
-	print( "Nice to meet you, " + name)
+
+	if high_scores.get(name) is not None:
+		print( "Welcome back, " + name)
+	else:
+		print( "Nice to meet you, " + name)
+
 	print( "I'll be keeping track of your highscore. Good Luck! " + '\n')
 
 	return name
@@ -138,7 +146,7 @@ def phrase_game_setup(topic):
 		    all_text = open_file.read()
 	elif(topic) == 's':
 		with open('slogans.txt', 'r') as open_file:
-		    all_text = open_file.read()
+			all_text = open_file.read()
 
 	#create a list of words from the file text
 	phrase_list = all_text.split("\n")
@@ -233,7 +241,6 @@ def guess(targeted, game_type):
 defeat message'''
 
 def play():
-
 	#set up the game
 	game_type = choose_game_type()
 	if game_type == 'w':
@@ -369,13 +376,24 @@ Saves the high score of the current user
 def save_highscore():
 	global username
 	global wins
-	#open or create a file to save the high scores and username in
+	#add the score to the dict
+	current_score = wins
+	old_score = high_scores.get(username)
 
-	f = open("highscores.txt", "a+")
-	line = "%s - %d" % (username, wins)
-	f.write(line +'\n')
-	f.close
+	#add the score to the dict if its more than the old one or there wasn't one
+	if old_score == None or current_score > old_score:
+		high_scores[username] = current_score
+		#write the json file too!
+		f = open("highscores.json", "w")
+		json.dump(high_scores, f, indent = 6)
+		f.close
 
+def load_highscore():
+	# Opening JSON file
+	f = open('highscores.json',)
+	# returns JSON object as 
+	# a dictionary
+	return json.load(f)
 
 '''
 CLI colors
@@ -398,5 +416,6 @@ The action starts here
 print( "Welcome to Hang_words." )
 print( "You can quit the game by typing 'exit' or 'quit' instead of guessing a letter. " )
 print( )
+high_scores = load_highscore()
 username = get_username()
 play()
