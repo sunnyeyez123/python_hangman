@@ -1,40 +1,9 @@
 import unittest
-from unittest.mock import patch
 from hangman import *
 
 
-class TestChooseGameType(unittest.TestCase):
-    def __init__(self, methodName):
-        super().__init__(methodName)
-        self.g = Game()
-
-    def test_valid_input_w(self):
-        print("Type 'w'")
-        self.assertEqual(self.g.choose_game_type(), 'w')
-
-    def test_valid_input_p(self):
-        print("Type 'p'")
-        self.assertEqual(self.g.choose_game_type(), 'p')
-
-    def test_invalid_input_1(self):
-        print("Type '1'")
-        with self.assertRaises(SystemExit):
-            self.g.choose_game_type()
-
-    def test_invalid_input_word(self):
-        print("Type 'word'")
-        with self.assertRaises(SystemExit):
-            self.g.choose_game_type()
-
-    def test_invalid_input_z(self):
-        print("Type 'z'")
-        with self.assertRaises(SystemExit):
-            self.g.choose_game_type()
-
-
 class WordGameSetupTest(unittest.TestCase):
-    def __init__(self, methodName):
-        super().__init__(methodName)
+    def setUp(self):
         self.g = Game()
 
     def test_easy_difficulty(self):
