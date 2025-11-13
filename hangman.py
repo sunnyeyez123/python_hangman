@@ -335,8 +335,11 @@ class Game:
 		:return:
 		"""
 
-		with open('highscores.json') as f:
-			self.high_scores = json.load(f)
+		try:
+			with open('highscores.json') as f:
+				self.high_scores = json.load(f)
+		except FileNotFoundError:
+			self.high_scores = {}
 
 
 class bcolors:
